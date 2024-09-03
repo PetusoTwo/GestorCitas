@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
+import uuid from '../../node_modules/uuid/dist/v4'
 
-export default function Formulario() {
+export default function Formulario({crearCita}) {
     //Creacion del state de citas
     const [citas, updateCitas] = useState({
         mascota: '',
@@ -33,17 +34,18 @@ export default function Formulario() {
         if(mascota.trim() === '' || propietario.trim() === '' || fecha.trim() === '' || hora.trim() === '' || peso.trim() === '' || edad.trim() === '' || sintomas.trim() === '') {
             updateError(true);
             return;
-        }
+        }updateError(false); //Para poder eliminar el mensaje de error
         //Asignar id
-
+        citas.id = uuid(); //Genera un id unico
         //Crear la cita
-
+        crearCita(citas);
         //Reiniciar el form
+        updateCitas({mascota: '', propietario: '', fecha: '', hora: '', peso: '', edad: '', sintomas: ''});
     }
 return (
     <>
     <h2>Crear cita</h2>
-    { error ? <p className="alerta-error">Todos los campos son obligatorios</p> : null}
+    
     <form
         onSubmit= {submitCita}
     >
@@ -61,6 +63,7 @@ return (
         <input type="number" name="edad" className="u-full-width" placeholder="Edad de la mascota" onChange={updateCitas1} value={edad}/>
         <label>Sintomas</label>
         <textarea name="sintomas" className="u-full-width" placeholder="Describe los Sintomas / Enfermedad" onChange={updateCitas1} value={sintomas}></textarea>
+        { error ? <p className="alerta-error">Todos los campos son obligatorios</p> : null}
         <input type="submit" className="button-primary u-full-width" value="Crear Cita" />
     </form>
     </>
