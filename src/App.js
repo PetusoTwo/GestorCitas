@@ -9,6 +9,15 @@ function App() {
     //console.log(citas);
     guardarCitas([...citasTotales, citas]);
   }
+  //Funcion para Eliminar alguna cita
+  const eliminarCita = (id) => {
+    const nuevasCitas = citasTotales.filter(cita => cita.id !== id);
+    guardarCitas(nuevasCitas);
+  }
+
+  //Mensaje para que salga que no hay citas
+  const mensajeC = citasTotales.length === 0 ? 'No hay Citas' : 'Administra tus Citas';
+
   return (
     <Fragment>
     <h1>
@@ -23,12 +32,13 @@ function App() {
         </div>
         <div className='one-half column'>
           <h2>
-            Citas
+            {mensajeC}
           </h2>
           {citasTotales.map(cita=> (
             <Cita
             key={cita.id}
             cita={cita}
+            eliminarCita={eliminarCita}
             />
           ))}
         </div>
