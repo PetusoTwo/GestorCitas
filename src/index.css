@@ -82,11 +82,9 @@ input[type="time"] {
 }
 
 .alerta-error {
-  background-color: white;
-  color: red;
+  color: rgb(0, 0, 0);
   padding: 1rem;
   font-size: 2rem;
   text-transform: uppercase;
   text-align: center;
-  font-family:  'Staatliches', cursive;
 } 

@@ -12,6 +12,8 @@ export default function Formulario() {
         sintomas: ''
     });
 
+    const [error, updateError] = useState(false);
+
     const updateCitas1 = (e) => {
         updateCitas({
             ...citas,
@@ -26,9 +28,12 @@ export default function Formulario() {
     const submitCita = e => {
         e.preventDefault(); 
         // alert('Se ha enviado el formulario'); validar que funciona
-        
-        //validar que todos los campos esten completos
 
+        //validar que todos los campos esten completos
+        if(mascota.trim() === '' || propietario.trim() === '' || fecha.trim() === '' || hora.trim() === '' || peso.trim() === '' || edad.trim() === '' || sintomas.trim() === '') {
+            updateError(true);
+            return;
+        }
         //Asignar id
 
         //Crear la cita
@@ -38,6 +43,7 @@ export default function Formulario() {
 return (
     <>
     <h2>Crear cita</h2>
+    { error ? <p className="alerta-error">Todos los campos son obligatorios</p> : null}
     <form
         onSubmit= {submitCita}
     >
